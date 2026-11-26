@@ -1,0 +1,37 @@
+NOTICE
+======
+
+Semaphore — https://github.com/drsamonline/app-semaphore
+Copyright 2026 Dr Sohil Momin. Licensed under PolyForm Noncommercial 1.0.0 (see LICENSE).
+
+Third-party components
+----------------------
+
+None. Semaphore has no third-party dependency and no CDN.
+
+Vendored from this project's own kits (same licence, same author), copied verbatim on 26/11/2026:
+
+- web-kit 0.1.0 — docs/play/web-kit.js — the offline shell, storage helpers and PWA registration
+- export-kit 1.0.0 — docs/play/export-kit.js — Blob download, used for the group export
+
+Neither kit is modified. Neither makes a network request.
+
+The transport gap
+-----------------
+
+The LAN transport is NOT built: no WebSocket, no multicast, no Bluetooth. The engine takes two copies of a
+group and syncs them, which is the operation a hotspot link would carry, and the page runs both copies so the
+catch-up can be seen and tested.
+
+Not encrypted
+-------------
+
+Messages are plain text on each device. Nothing here is end-to-end encrypted, and the app does not claim it
+is. If the group needs that, this is not the app for it yet.
+
+Why the sequence is assigned at merge
+-------------------------------------
+
+Two devices both numbering their first message #1 loses one of them on the first sync. A message therefore
+carries a unique id, and the sequence number is assigned when devices merge, ordered by time then id. That
+bug was found by a test that synced two devices that had each posted once.

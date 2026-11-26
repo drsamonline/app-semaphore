@@ -1,0 +1,6 @@
+{ "name": "app-semaphore", "version": "1.0.0", "private": true,
+  "description": "Messages and a pinned bulletin for a group, exchanged directly between devices. A device that was away catches up in one sync.",
+  "license": "PolyForm-Noncommercial-1.0.0", "author": "Dr Sohil Momin",
+  "scripts": { "test": "node tests/self-tests.js && node tests/page-smoke.js && node tests/ui-tests.js",
+    "test:engine": "node tests/self-tests.js", "test:shape": "node tests/page-smoke.js", "test:ui": "node tests/ui-tests.js" },
+  "devDependencies": { "jsdom": "^24.0.0" } }

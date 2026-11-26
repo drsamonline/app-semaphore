@@ -1,0 +1,11 @@
+{
+  "name": "Semaphore — messages for a group on a hotspot",
+  "short_name": "Semaphore",
+  "description": "Messages and a pinned bulletin for a group, exchanged directly between devices. A device that was away catches up in one sync.",
+  "start_url": "./index.html", "scope": "./", "display": "standalone",
+  "background_color": "#f6f5f2", "theme_color": "#1d2430", "lang": "en-IN",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

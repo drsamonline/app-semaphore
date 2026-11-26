@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semaphore — messages for a group on a hotspot</title>
+<meta name="description" content="Messages and a pinned bulletin for a group, exchanged directly between devices. A device that was away catches up in one sync.">
+<meta name="theme-color" content="#1d2430">
+<style>
+  :root{--bg:#f6f5f2;--panel:#fff;--ink:#1d2430;--muted:#5c6675;--line:#d9d6cf;--accent:#2f4a7a}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
+  main{max-width:760px;margin:0 auto;padding:50px 20px 64px}
+  h1{font-size:33px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px}
+  .lede{font-size:18px;color:var(--muted);margin:0 0 26px}
+  .cta{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:9px}
+  .status{margin:26px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:9px;background:var(--panel);font-size:14px}
+  .status b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+  h2{font-size:17px;margin:30px 0 8px}
+  ul{padding-left:20px}li{margin:4px 0}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#eeede9;padding:1px 5px;border-radius:4px}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
+  th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .gap{margin:22px 0 0;padding:12px 14px;border:1px solid #e3c9c9;border-left:4px solid #8f2a2a;border-radius:9px;background:#fdf3f3;color:#7d1f1f;font-size:13.5px}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  a{color:var(--accent)}
+</style></head>
+<body><main>
+  <h1>Semaphore</h1>
+  <p class="lede">Messages and a pinned bulletin for a group. <strong>A device that was away catches up in one sync</strong> — in the original order.</p>
+  <a class="cta" href="play/index.html">Open Semaphore</a>
+
+  <p class="gap"><strong>The LAN transport is not built.</strong> There is no WebSocket, no multicast and no Bluetooth here: the page keeps two copies of the group and syncs them through the same operation a hotspot link would carry.</p>
+
+  <div class="status">
+    <b>Status</b>
+    Built and working: messages with a sender and an optional attachment; a catch-up that brings an absent device everything it missed after one sync, in time order; a bulletin only the host can edit, which reaches every member; and low-power mode that refuses images and voice notes.
+    <br><b>Release</b>: Windows EXE, Android APK and Linux binary, built from this source in CI — <a href="https://github.com/drsamonline/app-semaphore/releases/tag/app-latest">app-latest</a>.
+    <br><b>Not built</b>: the transport, and therefore real multi-device messaging; also no encryption. Messages are plain text on each device.
+  </div>
+
+  <h2>What it does</h2>
+  <ul>
+    <li>Posts a message with a sender, and an optional attachment.</li>
+    <li>Catches an absent device up after <strong>one</strong> sync, in time order, with nothing duplicated.</li>
+    <li>Keeps a bulletin that only the host can edit, and that reaches every member.</li>
+    <li>Refuses an image or voice note while low-power mode is on.</li>
+  </ul>
+
+  <h2>What it will not do</h2>
+  <ul>
+    <li><strong>Claim a transport it does not have.</strong> The LAN link is named as absent.</li>
+    <li><strong>Let a non-host edit the bulletin.</strong> The refusal names whose it is.</li>
+    <li><strong>Accept an attachment in low-power mode.</strong></li>
+    <li><strong>Start an empty group over a broken one</strong> — that looks like everyone went quiet.</li>
+    <li><strong>Use the internet.</strong> No <code>fetch</code>, no endpoint; CSP <code>connect-src 'none'</code>.</li>
+  </ul>
+
+  <h2>When things go wrong</h2>
+  <table>
+    <tr><th>Case</th><th>What happens</th></tr>
+    <tr><td>Bad input</td><td>No group name, no host, no sender, an empty message, a sync between two different groups — each refused with the field named.</td></tr>
+    <tr><td>No network</td><td>Nothing changes; there is no network code.</td></tr>
+    <tr><td>Storage full or unavailable</td><td><strong>NOT SAVED</strong>, and the group on screen is unchanged.</td></tr>
+    <tr><td>Corrupt saved state</td><td>Reported and offered for export; never replaced with an empty one.</td></tr>
+  </table>
+
+  <h2>How to run it</h2>
+  <ul>
+    <li><strong>Here</strong>: <a href="play/index.html">play/index.html</a>, or install it from your browser's menu.</li>
+    <li><strong>Offline file</strong>: open <code>docs/play/index.html</code> straight from disk.</li>
+    <li><strong>Tests</strong>: <code>node tests/self-tests.js</code>.</li>
+  </ul>
+
+  <footer>PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin · <a href="https://github.com/drsamonline/app-semaphore">source</a></footer>
+</main></body></html>
