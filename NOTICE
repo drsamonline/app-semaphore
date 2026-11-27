@@ -19,7 +19,7 @@ Neither kit is modified. Neither makes a network request.
 The transport gap
 -----------------
 
-The LAN transport is NOT built: no WebSocket, no multicast, no Bluetooth. The engine takes two copies of a
+A LAN transport does exist in this estate — `lan-kit`, zero dependencies, SSE and POST — but it is not wired into this app. What ships here is a same-device bus, so the room logic runs and can be tested. The engine takes two copies of a
 group and syncs them, which is the operation a hotspot link would carry, and the page runs both copies so the
 catch-up can be seen and tested.
 
