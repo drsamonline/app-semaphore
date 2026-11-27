@@ -17,7 +17,7 @@ function build(seed) {
 }
 var dom = build(null), w = dom.window, d = w.document, $ = function (id) { return d.getElementById(id); };
 ok("the engine loaded", !!w.SemaphoreCore);
-ok("the transport gap is on the page", /The LAN transport is not built/.test(d.body.textContent));
+ok("the transport gap is on the page", /lan-kit/.test(d.body.textContent));
 
 $("openBtn").click();
 ok("a group opens", /opened, hosted by Sohil/.test($("status").textContent), $("status").textContent);
